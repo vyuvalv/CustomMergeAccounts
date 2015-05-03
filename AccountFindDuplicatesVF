@@ -1,0 +1,64 @@
+<apex:page standardController="Account" extensions="FindDuplicatesAccountsController">
+  <apex:form >
+    <apex:pageBlock mode="maindetail" >
+    <apex:pageBlockButtons location="bottom">
+        	<apex:commandButton action="{!Save}" value="Save Changes & Search Dups"/>
+        	<apex:commandButton action="{!cancel}" value="Exit"/>
+      </apex:pageBlockButtons>
+          <apex:pageBlockSection title="Current Account" columns="1" collapsible="false">
+          <apex:outputField value="{!Account.Name }">
+          <apex:inlineEditSupport showOnEdit="saveButton" event="ondblclick"/> 
+          </apex:outputField>
+          <apex:outputField value="{!Account.AccountNumber}">
+          <apex:inlineEditSupport showOnEdit="saveButton" event="ondblclick"/> 	
+          </apex:outputField>
+          <apex:outputField value="{!Account.Type}">
+           <apex:inlineEditSupport showOnEdit="saveButton" event="ondblclick"/> 	
+          </apex:outputField>
+          <apex:outputField value="{!Account.Industry}"/>
+          <apex:outputField value="{!Account.BillingCity}"/>
+          <apex:outputField value="{!Account.BillingPostalCode}"/>
+        </apex:pageBlockSection> 
+        
+      <apex:outputPanel id="jspanel"> 
+          <script>  
+                  function onControllerReturn() {
+                      if({!success}==true){
+                      window.top.location.href ='{!message}'; }
+                      else {
+                      alert('{!message}');}
+                     
+                  }
+          </script>
+      </apex:outputPanel>
+      </apex:pageBlock>
+      <apex:pageBlock>   
+      <apex:actionFunction name="doControllerSave" action="{!processRedirect}" rerender="jspanel"/>
+      
+      <apex:pageBlockButtons location="bottom">
+        	<apex:commandButton onclick="doControllerSave();" oncomplete="onControllerReturn()" value="Merge"/>
+      </apex:pageBlockButtons>
+       
+        <apex:pageMessages />
+      
+	   <apex:pageBlockSection title="List of Matching Accounts">
+       </apex:pageBlockSection>
+         <apex:pageblockTable value="{!accWrapperList}" var="acc">
+            <apex:column >
+            <apex:inputCheckbox value="{!acc.accFlag}"/>
+         	</apex:column>
+            <apex:column value="{!acc.AccRec.name}"/>
+            <apex:column value="{!acc.AccRec.Type}"/>
+            <apex:column value="{!acc.AccRec.AccountNumber}"/>
+            <apex:column value="{!acc.AccRec.Industry}"/>
+            <apex:column value="{!acc.AccRec.BillingStreet}"/>
+            <apex:column value="{!acc.AccRec.BillingCity}"/>
+            <apex:column value="{!acc.AccRec.BillingPostalCode}"/>
+         	
+     </apex:pageblockTable>
+   </apex:pageBlock>
+      
+      
+  </apex:form>
+
+</apex:page>
