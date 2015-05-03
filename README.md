@@ -1,4 +1,4 @@
-# CustomMergeAccounts
+## Custom URL To Merge Accounts Standard Page
 Salesforce Custom URL Redirect with Parameters to Merge Accounts
 
 I wrote and Idea in Salesforce but couldn't wait till Salesforce will create this kind of tool so thought about sharing it online to get help in coding and get this kinda awsome tool to work as imaging. 
